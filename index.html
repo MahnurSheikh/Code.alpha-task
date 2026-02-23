@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curated Gallery | Professional Portfolio</title>
+    
+    <!-- Google Fonts - Premium Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========================================
+           CSS VARIABLES - DESIGN SYSTEM
+           ======================================== */
+        :root {
+            /* Premium Color Palette */
+            --color-primary: #1a1a1a;
+            --color-secondary: #2d2d2d;
+            --color-accent: #c9a961;
+            --color-accent-dark: #a88b4e;
+            --color-text-primary: #ffffff;
+            --color-text-secondary: #b8b8b8;
+            --color-text-muted: #7a7a7a;
+            --color-background: #0f0f0f;
+            --color-surface: #1a1a1a;
+            --color-border: rgba(201, 169, 97, 0.2);
+            
+            /* Typography */
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Montserrat', sans-serif;
+            
+            /* Spacing */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            --spacing-2xl: 4rem;
+            
+            /* Transitions */
+            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-smooth: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            
+            /* Shadows */
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
+            --shadow-xl: 0 16px 64px rgba(0, 0, 0, 0.7);
+        }
+
+        /* ========================================
+           RESET & BASE STYLES
+           ======================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--color-background);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Sophisticated grain texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(201, 169, 97, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(201, 169, 97, 0.02) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: var(--spacing-xl) var(--spacing-md);
+        }
+
+        /* ========================================
+           HEADER & BRANDING
+           ======================================== */
+        .header {
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+            padding: var(--spacing-xl) 0;
+            position: relative;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                var(--color-accent) 50%, 
+                transparent 100%
+            );
+        }
+
+        .brand-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 300;
+            letter-spacing: 0.02em;
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-text-primary);
+            animation: fadeInDown 0.8s var(--transition-smooth) backwards;
+        }
+
+        .brand-subtitle {
+            font-family: var(--font-body);
+            font-size: clamp(0.875rem, 1.5vw, 1rem);
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            animation: fadeInDown 0.8s var(--transition-smooth) 0.1s backwards;
+        }
+
+        .header-description {
+            font-family: var(--font-body);
+            font-size: clamp(0.875rem, 1.5vw, 1rem);
+            color: var(--color-text-secondary);
+            margin-top: var(--spacing-md);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInDown 0.8s var(--transition-smooth) 0.2s backwards;
+        }
+
+        /* ========================================
+           FILTER NAVIGATION
+           ======================================== */
+        .filter-navigation {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-xs);
+            margin-bottom: var(--spacing-2xl);
+            flex-wrap: wrap;
+            animation: fadeIn 1s var(--transition-smooth) 0.3s backwards;
+        }
+
+        .filter-btn {
+            position: relative;
+            padding: 0.75rem 2rem;
+            background: transparent;
+            color: var(--color-text-secondary);
+            border: 1px solid var(--color-border);
+            font-family: var(--font-body);
+            font-size: 0.813rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            overflow: hidden;
+        }
+
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--color-accent);
+            transition: left var(--transition-base);
+            z-index: -1;
+        }
+
+        .filter-btn:hover::before {
+            left: 0;
+        }
+
+        .filter-btn:hover {
+            color: var(--color-primary);
+            border-color: var(--color-accent);
+            transform: translateY(-2px);
+        }
+
+        .filter-btn.active {
+            background: var(--color-accent);
+            color: var(--color-primary);
+            border-color: var(--color-accent);
+            font-weight: 600;
+        }
+
+        .filter-btn.active::before {
+            display: none;
+        }
+
+        .filter-btn:focus {
+            outline: 2px solid var(--color-accent);
+            outline-offset: 3px;
+        }
+
+        /* ========================================
+           GALLERY GRID
+           ======================================== */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        /* ========================================
+           GALLERY ITEMS - PREMIUM CARDS
+           ======================================== */
+        .gallery-item {
+            position: relative;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            cursor: pointer;
+            transition: all var(--transition-smooth);
+            animation: fadeInUp 0.6s var(--transition-smooth) backwards;
+            overflow: hidden;
+        }
+
+        /* Staggered animation delays */
+        .gallery-item:nth-child(1) { animation-delay: 0.05s; }
+        .gallery-item:nth-child(2) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(3) { animation-delay: 0.15s; }
+        .gallery-item:nth-child(4) { animation-delay: 0.2s; }
+        .gallery-item:nth-child(5) { animation-delay: 0.25s; }
+        .gallery-item:nth-child(6) { animation-delay: 0.3s; }
+        .gallery-item:nth-child(7) { animation-delay: 0.35s; }
+        .gallery-item:nth-child(8) { animation-delay: 0.4s; }
+        .gallery-item:nth-child(9) { animation-delay: 0.45s; }
+        .gallery-item:nth-child(n+10) { animation-delay: 0.5s; }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(201, 169, 97, 0) 0%, 
+                rgba(201, 169, 97, 0.1) 100%
+            );
+            opacity: 0;
+            transition: opacity var(--transition-base);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .gallery-item:hover::before {
+            opacity: 1;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-8px);
+            border-color: var(--color-accent);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .image-wrapper {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            background: var(--color-secondary);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform var(--transition-slow);
+            filter: grayscale(0.2) contrast(1.1);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+            filter: grayscale(0) contrast(1.15);
+        }
+
+        /* Image overlay gradient */
+        .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: var(--spacing-md);
+            background: linear-gradient(to top, 
+                rgba(0, 0, 0, 0.9) 0%, 
+                rgba(0, 0, 0, 0.7) 50%,
+                transparent 100%
+            );
+            transform: translateY(100%);
+            transition: transform var(--transition-base);
+            z-index: 2;
+        }
+
+        .gallery-item:hover .image-overlay {
+            transform: translateY(0);
+        }
+
+        .category-tag {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            margin-bottom: 0.25rem;
+        }
+
+        .image-title {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: var(--color-text-primary);
+            line-height: 1.3;
+        }
+
+        /* Item metadata footer */
+        .item-footer {
+            padding: var(--spacing-md);
+            background: var(--color-surface);
+            border-top: 1px solid rgba(201, 169, 97, 0.1);
+        }
+
+        .item-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            font-weight: 400;
+            letter-spacing: 0.05em;
+        }
+
+        .view-icon {
+            color: var(--color-accent);
+            font-size: 0.875rem;
+        }
+
+        /* Hide filtered items */
+        .gallery-item.hide {
+            display: none;
+        }
+
+        /* ========================================
+           LIGHTBOX / MODAL
+           ======================================== */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.96);
+            backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: fadeIn 0.3s ease-out;
+            padding: var(--spacing-md);
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90vh;
+            animation: scaleIn 0.4s var(--transition-smooth);
+        }
+
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 85vh;
+            object-fit: contain;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--color-border);
+        }
+
+        /* Image counter */
+        .image-counter {
+            position: absolute;
+            top: -50px;
+            left: 0;
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            color: var(--color-text-secondary);
+        }
+
+        .image-counter .current {
+            color: var(--color-accent);
+            font-weight: 500;
+        }
+
+        /* Close button */
+        .close-btn {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            color: var(--color-text-primary);
+            border: 1px solid var(--color-border);
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-base);
+            font-weight: 300;
+        }
+
+        .close-btn:hover {
+            background: var(--color-accent);
+            color: var(--color-primary);
+            border-color: var(--color-accent);
+            transform: rotate(90deg);
+        }
+
+        .close-btn:focus {
+            outline: 2px solid var(--color-accent);
+            outline-offset: 3px;
+        }
+
+        /* Navigation arrows */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(26, 26, 26, 0.8);
+            backdrop-filter: blur(10px);
+            color: var(--color-text-primary);
+            border: 1px solid var(--color-border);
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-btn:hover {
+            background: var(--color-accent);
+            color: var(--color-primary);
+            border-color: var(--color-accent);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .nav-btn:focus {
+            outline: 2px solid var(--color-accent);
+            outline-offset: 3px;
+        }
+
+        .prev-btn {
+            left: -70px;
+        }
+
+        .next-btn {
+            right: -70px;
+        }
+
+        /* ========================================
+           FOOTER
+           ======================================== */
+        .footer {
+            text-align: center;
+            padding: var(--spacing-xl) 0;
+            margin-top: var(--spacing-2xl);
+            border-top: 1px solid var(--color-border);
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+            letter-spacing: 0.05em;
+        }
+
+        .footer-accent {
+            color: var(--color-accent);
+            font-weight: 500;
+        }
+
+        /* ========================================
+           ANIMATIONS
+           ======================================== */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* ========================================
+           RESPONSIVE DESIGN
+           ======================================== */
+        @media (max-width: 1024px) {
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .prev-btn,
+            .next-btn {
+                width: 45px;
+                height: 45px;
+            }
+
+            .prev-btn {
+                left: -60px;
+            }
+
+            .next-btn {
+                right: -60px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --spacing-xl: 2rem;
+                --spacing-2xl: 3rem;
+            }
+
+            .container {
+                padding: var(--spacing-lg) var(--spacing-sm);
+            }
+
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                gap: 1.25rem;
+            }
+
+            .filter-navigation {
+                gap: 0.5rem;
+            }
+
+            .filter-btn {
+                padding: 0.65rem 1.5rem;
+                font-size: 0.75rem;
+            }
+
+            .prev-btn,
+            .next-btn {
+                width: 40px;
+                height: 40px;
+            }
+
+            .prev-btn {
+                left: 10px;
+            }
+
+            .next-btn {
+                right: 10px;
+            }
+
+            .close-btn,
+            .image-counter {
+                top: 10px;
+            }
+
+            .lightbox-content {
+                max-width: 95%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .image-wrapper {
+                aspect-ratio: 3/2;
+            }
+
+            .filter-btn {
+                padding: 0.6rem 1.25rem;
+                font-size: 0.7rem;
+            }
+
+            .item-footer {
+                padding: var(--spacing-sm);
+            }
+
+            .brand-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* ========================================
+           CUSTOM SCROLLBAR
+           ======================================== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--color-background);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-accent);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--color-accent-dark);
+        }
+
+        /* ========================================
+           LOADING STATE
+           ======================================== */
+        .loading {
+            opacity: 0;
+            animation: fadeIn 0.3s ease-out 0.1s forwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="container loading">
+        <!-- Header Section -->
+        <header class="header">
+            <h1 class="brand-title">Curated Gallery</h1>
+            <p class="brand-subtitle">Visual Excellence</p>
+            <p class="header-description">
+                A carefully curated collection of professional photography showcasing the finest work across multiple disciplines
+            </p>
+        </header>
+
+        <!-- Filter Navigation -->
+        <nav class="filter-navigation" role="navigation" aria-label="Category filters">
+            <button class="filter-btn active" data-filter="all" aria-label="Show all images">All Works</button>
+            <button class="filter-btn" data-filter="nature" aria-label="Filter by nature">Nature</button>
+            <button class="filter-btn" data-filter="architecture" aria-label="Filter by architecture">Architecture</button>
+            <button class="filter-btn" data-filter="people" aria-label="Filter by people">People</button>
+            <button class="filter-btn" data-filter="technology" aria-label="Filter by technology">Technology</button>
+        </nav>
+
+        <!-- Gallery Grid -->
+        <div class="gallery" role="list">
+            <!-- Gallery Item 1 -->
+            <article class="gallery-item" data-category="nature" role="listitem" tabindex="0">
+                <div class="image-wrapper">
+                    <img src="images/mountain.avif" 
+                         alt="Majestic mountain landscape with clear blue sky and pristine wilderness">
+                    <div class="image-overlay">
+                        <div class="category-tag">Nature</div>
+                        <h2 class="image-title">Alpine Majesty</h2>
+                    </div>
+                </div>
+                <div class="item-footer">
+                    <div class="item-meta">
+                        <span>Landscape Photography</span>
+                        <span class="view-icon">↗</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Gallery Item 2 -->
+            <article class="gallery-item" data-category="architecture" role="listitem" tabindex="0">
+                <div class="image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=800&h=600&fit=crop" 
+                         alt="Modern architectural design with geometric patterns and clean lines">
+                    <div class="image-overlay">
+                        <div class="category-tag">Architecture</div>
+                        <h2 class="image-title">Urban Geometry</h2>
+                    </div>
+                </div>
+                <div class="item-footer">
+                    <div class="item-meta">
+                        <span>Architectural Study</span>
+                        <span class="view-icon">↗</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Gallery Item 3 -->
+            <article class="gallery-item" data-category="people" role="listitem" tabindex="0">
+                <div class="image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=800&h=600&fit=crop" 
+                         alt="Professional portrait capturing authentic human expression">
+                    <div class="image-overlay">
+                        <div class="category-tag">People</div>
+                        <h2 class="image-title">Human Connection</h2>
+                    </div>
+                </div>
+                <div class="item-footer">
+                    <div class="item-meta">
+                        <span>Portrait Series</span>
+                        <span class="view-icon">↗</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Gallery Item 4 -->
+            <article class="gallery-item" data-category="technology" role="listitem" tabindex="0">
+                <div class="image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=600&fit=crop" 
+                         alt="Cutting-edge technology and digital innovation">
+                    <div class="image-overlay">
+                        <div class="category-tag">Technology</div>
+                        <h2 class="image-title">Digital Frontier</h2>
+                    </div>
+                </div>
+                <div class="item-footer">
+                    <div class="item-meta">
+                        <span>Tech Innovation</span>
+                        <span class="view-icon">↗</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Gallery Item 5 -->
+            <article class="gallery-item" data-category="nature" role="listitem" tabindex="0">
+                <div class="image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=600&fit=crop" 
+                         alt="Serene forest path surrounded by lush greenery">
+                    <div class="image-overlay">
+                        <div class="category-tag">Nature</div>
+                        <h2 class="image-title">Forest Sanctuary</h2>
+                    </div>
+                </div>
+                <div class="item-footer">
+                    <div class="item-meta">
+                        <span>Natural Beauty</span>
+                        <span class="view-icon">↗</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Gallery Item 6 -->
+            <article class="gallery-item" data-category="architecture" role="listitem" tabindex="0">
+                <div class="image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800&h=600&fit=crop" 
+                         alt="Dramatic city skyline with modern architectural elements">
+                    <div class="image-overlay">
+                        <div class="category-tag">Architecture</div>
+                        <h2 class="image-title">Metropolitan Vision</h2>
+                    </div>
+                </div>
+                <div class="item-footer">
+                    <div class="item-meta">
+                        <span>Urban Landscape</span>
+                        <span class="view-icon">↗</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Gallery Item 7 -->
+            <article class="gallery-item" data-category="people" role="listitem" tabindex="0">
+                <div class="image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=800&h=600&fit=crop" 
+                         alt="Compelling portrait with natural lighting and depth">
+                    <div class="image-overlay">
+                        <div class="category-tag">People</div>
+                        <h2 class="image-title">Character Study</h2>
+                    </div>
+                </div>
+                <div class="item-footer">
+                    <div class="item-meta">
+                        <span>Editorial Portrait</span>
+                        <span class="view-icon">↗</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Gallery Item 8 -->
+            <article class="gallery-item" data-category="technology" role="listitem" tabindex="0">
+                <div class="image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&h=600&fit=crop" 
+                         alt="Modern workspace showcasing digital technology">
+                    <div class="image-overlay">
+                        <div class="category-tag">Technology</div>
+                        <h2 class="image-title">Digital Workspace</h2>
+                    </div>
+                </div>
+                <div class="item-footer">
+                    <div class="item-meta">
+                        <span>Modern Office</span>
+                        <span class="view-icon">↗</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Gallery Item 9 -->
+            <article class="gallery-item" data-category="nature" role="listitem" tabindex="0">
+                <div class="image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&h=600&fit=crop" 
+                         alt="Breathtaking natural scenery with dramatic lighting">
+                    <div class="image-overlay">
+                        <div class="category-tag">Nature</div>
+                        <h2 class="image-title">Golden Hour</h2>
+                    </div>
+                </div>
+                <div class="item-footer">
+                    <div class="item-meta">
+                        <span>Scenic Vista</span>
+                        <span class="view-icon">↗</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Gallery Item 10 -->
+            <article class="gallery-item" data-category="architecture" role="listitem" tabindex="0">
+                <div class="image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&h=600&fit=crop" 
+                         alt="Intricate architectural details and craftsmanship">
+                    <div class="image-overlay">
+                        <div class="category-tag">Architecture</div>
+                        <h2 class="image-title">Structural Elegance</h2>
+                    </div>
+                </div>
+                <div class="item-footer">
+                    <div class="item-meta">
+                        <span>Design Detail</span>
+                        <span class="view-icon">↗</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Gallery Item 11 -->
+            <article class="gallery-item" data-category="people" role="listitem" tabindex="0">
+                <div class="image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop" 
+                         alt="Professional business portrait with refined aesthetics">
+                    <div class="image-overlay">
+                        <div class="category-tag">People</div>
+                        <h2 class="image-title">Professional Profile</h2>
+                    </div>
+                </div>
+                <div class="item-footer">
+                    <div class="item-meta">
+                        <span>Corporate Portrait</span>
+                        <span class="view-icon">↗</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Gallery Item 12 -->
+            <article class="gallery-item" data-category="technology" role="listitem" tabindex="0">
+                <div class="image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&h=600&fit=crop" 
+                         alt="Contemporary technology devices and digital lifestyle">
+                    <div class="image-overlay">
+                        <div class="category-tag">Technology</div>
+                        <h2 class="image-title">Connected World</h2>
+                    </div>
+                </div>
+                <div class="item-footer">
+                    <div class="item-meta">
+                        <span>Digital Lifestyle</span>
+                        <span class="view-icon">↗</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Portfolio Gallery • <span class="footer-accent">Designed with precision and care</span></p>
+        </footer>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+        <div class="lightbox-content">
+            <div class="image-counter">
+                <span class="current">1</span> / <span class="total">12</span>
+            </div>
+            <button class="close-btn" id="closeBtn" aria-label="Close image viewer">×</button>
+            <button class="nav-btn prev-btn" id="prevBtn" aria-label="Previous image">‹</button>
+            <img src="" alt="" id="lightboxImg">
+            <button class="nav-btn next-btn" id="nextBtn" aria-label="Next image">›</button>
+        </div>
+    </div>
+
+    <script>
+        // ========================================
+        // INITIALIZATION
+        // ========================================
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            // Remove loading class to trigger fade-in
+            document.querySelector('.container').classList.remove('loading');
+        });
+
+        // ========================================
+        // GALLERY FILTERING
+        // ========================================
+        
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active state
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                const filterValue = button.getAttribute('data-filter');
+
+                // Filter items with smooth animation
+                galleryItems.forEach((item, index) => {
+                    const category = item.getAttribute('data-category');
+                    
+                    if (filterValue === 'all' || category === filterValue) {
+                        item.classList.remove('hide');
+                        // Stagger re-animation
+                        item.style.animation = 'none';
+                        setTimeout(() => {
+                            item.style.animation = `fadeInUp 0.6s var(--transition-smooth) ${index * 0.05}s backwards`;
+                        }, 10);
+                    } else {
+                        item.classList.add('hide');
+                    }
+                });
+
+                // Update visible images for lightbox
+                updateVisibleImages();
+            });
+        });
+
+        // ========================================
+        // LIGHTBOX FUNCTIONALITY
+        // ========================================
+        
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const closeBtn = document.getElementById('closeBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const imageCounter = document.querySelector('.image-counter');
+        const currentCounter = imageCounter.querySelector('.current');
+        const totalCounter = imageCounter.querySelector('.total');
+
+        let currentImageIndex = 0;
+        let visibleImages = [];
+
+        // Update visible images array
+        function updateVisibleImages() {
+            visibleImages = Array.from(galleryItems).filter(item => 
+                !item.classList.contains('hide')
+            );
+            totalCounter.textContent = visibleImages.length;
+        }
+
+        // Update counter display
+        function updateCounter() {
+            currentCounter.textContent = currentImageIndex + 1;
+        }
+
+        // Open lightbox
+        galleryItems.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                updateVisibleImages();
+                currentImageIndex = visibleImages.indexOf(item);
+                
+                const img = item.querySelector('img');
+                lightboxImg.src = img.src;
+                lightboxImg.alt = img.alt;
+                
+                updateCounter();
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+
+            // Keyboard support for opening
+            item.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    item.click();
+                }
+            });
+        });
+
+        // Close lightbox
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        closeBtn.addEventListener('click', closeLightbox);
+
+        // Close on background click
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        // ========================================
+        // NAVIGATION
+        // ========================================
+        
+        function showPreviousImage() {
+            currentImageIndex = (currentImageIndex - 1 + visibleImages.length) % visibleImages.length;
+            const img = visibleImages[currentImageIndex].querySelector('img');
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt;
+            updateCounter();
+        }
+
+        function showNextImage() {
+            currentImageIndex = (currentImageIndex + 1) % visibleImages.length;
+            const img = visibleImages[currentImageIndex].querySelector('img');
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt;
+            updateCounter();
+        }
+
+        prevBtn.addEventListener('click', showPreviousImage);
+        nextBtn.addEventListener('click', showNextImage);
+
+        // ========================================
+        // KEYBOARD CONTROLS
+        // ========================================
+        
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+
+            switch(e.key) {
+                case 'Escape':
+                    closeLightbox();
+                    break;
+                case 'ArrowLeft':
+                    showPreviousImage();
+                    break;
+                case 'ArrowRight':
+                    showNextImage();
+                    break;
+            }
+        });
+
+        // ========================================
+        // ACCESSIBILITY ENHANCEMENTS
+        // ========================================
+        
+        // Focus trap in lightbox
+        const focusableElements = [closeBtn, prevBtn, nextBtn];
+        let currentFocusIndex = 0;
+
+        lightbox.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab') {
+                e.preventDefault();
+                currentFocusIndex = (currentFocusIndex + (e.shiftKey ? -1 : 1) + focusableElements.length) % focusableElements.length;
+                focusableElements[currentFocusIndex].focus();
+            }
+        });
+
+        // Initialize visible images
+        updateVisibleImages();
+
+        // ========================================
+        // PERFORMANCE OPTIMIZATION
+        // ========================================
+        
+        // Lazy loading simulation (images already loaded via Unsplash)
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.style.opacity = '1';
+                    }
+                });
+            });
+
+            document.querySelectorAll('.gallery-item img').forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
+
+        // Smooth scroll for better UX
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
